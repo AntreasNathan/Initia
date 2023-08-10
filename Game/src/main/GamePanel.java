@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
 	
@@ -17,12 +18,12 @@ public class GamePanel extends JPanel implements Runnable{
 	final int scale = 5;
 	
 	public final int tileSize = originalCharacterSize * scale;
-	final int maxScreenCol = 16;
-	final int maxScreenRow = 12;
+	public final int maxScreenCol = 16;
+	public final int maxScreenRow = 12;
 	//public final int screenWidth = tileSize * maxScreenCol;
-	public final int screenWidth = 1500;
+	public final int screenWidth = tileSize * maxScreenCol;
 	//public final int screenHeight = tileSize * maxScreenRow;
-	public final int screenHeight = 800;
+	public final int screenHeight = tileSize * maxScreenRow;
 	
 	//FPS
 	final int fps = 60;
@@ -31,10 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread; 		//bring time to the game
 	Player player = new Player(this, keyH);
 	
-	//Set player default position
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 10;
+	TileManager tileM = new TileManager(this);
 	
 	public GamePanel() {
 		
@@ -108,7 +106,7 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			
 			if(timer >= 1000000000) {
-				System.out.println("Fps: " + drawCount);
+				//System.out.println("Fps: " + drawCount);
 				drawCount = 0;
 				timer = 0;
 			}
@@ -127,7 +125,9 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D)g;	//more factions to use
-				
+		
+		tileM.draw(g2);
+		
 		player.draw(g2);
 		
 		g2.dispose();
