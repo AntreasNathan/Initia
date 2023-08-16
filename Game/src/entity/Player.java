@@ -14,19 +14,30 @@ public class Player extends Entity {
 
 	public GamePanel gp;
 	public KeyHandler keyH;
-	
+	public String directionV, directionH;
+	public final int screenX, screenY;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
+		
 		this.gp = gp;
 		this.keyH = keyH;
+		
+		this.screenX = (gp.screenWidth / 2) - gp.tileSize/2;
+		this.screenY = (gp.screenHeight / 2) - gp.tileSize/2;
+		
 		this.seDefaultValues();
 		this.getImage();
+		
 	}
 	
 	public void seDefaultValues() {
-		this.x = 100;
-		this.y = 100;
+		
+		this.worldX = gp.tileSize * 21;
+		this.worldY = gp.tileSize * 23;
 		this.speed = 10;
+		this.directionV = "up";
+		this.directionH = "right";
+		
 	}
 	
 	public void getImage() {
@@ -78,86 +89,86 @@ public class Player extends Entity {
 			|| (keyH.leftPressed == true) || (keyH.rightPressed == true)) {
 			
 			if(keyH.upPressed == true && keyH.leftPressed == true) {
-				if((y-speed) <= 0)
-					y = 0;
-				else if((x-speed) <= 0)
-					x = 0;
+				if((worldY-speed) <= 0)
+					worldY = 0;
+				else if((worldX-speed) <= 0)
+					worldX = 0;
 				else {
-					y -= (speed/2);
-					x -= (speed/2);
+					worldY -= (speed/2);
+					worldX -= (speed/2);
 				}
 				directionV = "up";
 				directionH = "left";
 			
 			}
 			else if(keyH.upPressed == true && keyH.rightPressed == true) {
-				if((y-speed) <= 0)
-					y = 0;
-				else if((x+speed) >= (gp.screenWidth - gp.tileSize))
-					x = (gp.screenWidth - gp.tileSize);
+				if((worldY-speed) <= 0)
+					worldY = 0;
+				else if((worldX+speed) >= (gp.worldWidth - gp.tileSize))
+					worldX = (gp.worldWidth - gp.tileSize);
 				else {
-					y -= (speed/2);
-					x += (speed/2);
+					worldY -= (speed/2);
+					worldX += (speed/2);
 				}
 				directionV = "up";
 				directionH = "right";
 			}
 			else if(keyH.downPressed == true && keyH.rightPressed == true) {
-				if((y + speed) >= (gp.screenHeight - gp.tileSize))
-					y = (gp.screenHeight - gp.tileSize);
-				else if((x+speed) >= (gp.screenWidth - gp.tileSize))
-					x = (gp.screenWidth - gp.tileSize);
+				if((worldY + speed) >= (gp.worldHeight - gp.tileSize))
+					worldY = (gp.worldHeight - gp.tileSize);
+				else if((worldX+speed) >= (gp.worldWidth - gp.tileSize))
+					worldX = (gp.worldWidth - gp.tileSize);
 				else {
-					y += (speed/2);
-					x += (speed/2);
+					worldY += (speed/2);
+					worldX += (speed/2);
 				}
 				directionV = "down";
 				directionH = "right";
 			}
 			else if(keyH.downPressed == true && keyH.leftPressed == true) {
-				if((y + speed) >= (gp.screenHeight - gp.tileSize))
-					y = (gp.screenHeight - gp.tileSize);
-				else if((x-speed) <= 0)
-					x = 0;
+				if((worldY + speed) >= (gp.worldHeight - gp.tileSize))
+					worldY = (gp.worldHeight - gp.tileSize);
+				else if((worldX-speed) <= 0)
+					worldX = 0;
 				else {
-					y += (speed/2);
-					x -= (speed/2);
+					worldY += (speed/2);
+					worldX -= (speed/2);
 				}
 				directionV = "down";
 				directionH = "left";
 			}
 			else if(keyH.upPressed == true) {
-				if((y-speed) <= 0)
-					y = 0;
+				if((worldY-speed) <= 0)
+					worldY = 0;
 				else
-					y -= speed;
+					worldY -= speed;
 				//System.out.println("up");
 				directionV = "up";
 				directionH = "NULL";
 			}
 			else if(keyH.downPressed == true) {
-				if((y + speed) >= (gp.screenHeight - gp.tileSize))
-					y = (gp.screenHeight - gp.tileSize);
+				if((worldY + speed) >= (gp.worldHeight - gp.tileSize))
+					worldY = (gp.worldHeight - gp.tileSize);
 				else
-					y += speed;
+					worldY += speed;
 				//System.out.println("down");
 				directionV = "down";
 				directionH = "NULL";
 			}
 			else if(keyH.leftPressed == true) {
-				if((x-speed) <= 0)
-					x = 0;
+				if((worldX-speed) <= 0)
+					worldX = 0;
 				else
-					x -= speed;
+					worldX -= speed;
 				//System.out.println("left");
 				directionH = "left";
 				directionV = "NULL";
 			}
 			else if(keyH.rightPressed == true) {
-				if((x+speed) >= (gp.screenWidth - gp.tileSize))
-					x = (gp.screenWidth - gp.tileSize);
+				if((worldX+speed) >= (gp.worldWidth - gp.tileSize))
+					worldX = (gp.worldWidth - gp.tileSize);
 				else
-					x += speed;
+					worldX += speed;
 				//System.out.println("right");
 				directionH = "right";
 				directionV = "NULL";
@@ -265,7 +276,7 @@ public class Player extends Entity {
 				image = right0;
 		}
 		
-		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 		//g2.fillRect(x, y, gp.tileSize, gp.tileSize);
 		
 		
