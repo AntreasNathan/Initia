@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import entity.Player;
 import tile.TileManager;
 
+//reset
+
 public class GamePanel extends JPanel implements Runnable{
 	
 	//Screen Settings
