@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import entity.Player;
 import tile.TileManager;
 
-//reset
 
 public class GamePanel extends JPanel implements Runnable{
 	
@@ -85,7 +84,6 @@ public class GamePanel extends JPanel implements Runnable{
 //			
 //		}
 		
-		//reset
 		
 		//second method
 		double drawInterval = 1000000000/fps;

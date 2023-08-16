@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
-//reset
+
 
 public class TileManager {
 	

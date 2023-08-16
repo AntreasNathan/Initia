@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 
-//reset
 
 public class Player extends Entity {
 
