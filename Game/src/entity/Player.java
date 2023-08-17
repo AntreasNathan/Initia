@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -14,7 +15,6 @@ public class Player extends Entity {
 
 	public GamePanel gp;
 	public KeyHandler keyH;
-	public String directionV, directionH;
 	public final int screenX, screenY;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -24,6 +24,17 @@ public class Player extends Entity {
 		
 		this.screenX = (gp.screenWidth / 2) - gp.tileSize/2;
 		this.screenY = (gp.screenHeight / 2) - gp.tileSize/2;
+		
+		//solid area is rectangle at the centre/lower end of the player
+		solidArea = new Rectangle();
+		//x,y indicates the upper right point of the rectangle 'solid' area
+		//adding -1 for straight surfaces like the beginning
+		//number are the pixels of the 16x16 image
+		solidArea.x = 5 * gp.scale;
+		solidArea.y = 8 * gp.scale;
+		
+		solidArea.width = gp.tileSize - (solidArea.x * 2);
+		solidArea.height = gp.tileSize - (solidArea.y) - 1;
 		
 		this.seDefaultValues();
 		this.getImage();
@@ -93,10 +104,7 @@ public class Player extends Entity {
 					worldY = 0;
 				else if((worldX-speed) <= 0)
 					worldX = 0;
-				else {
-					worldY -= (speed/2);
-					worldX -= (speed/2);
-				}
+				
 				directionV = "up";
 				directionH = "left";
 			
@@ -106,10 +114,7 @@ public class Player extends Entity {
 					worldY = 0;
 				else if((worldX+speed) >= (gp.worldWidth - gp.tileSize))
 					worldX = (gp.worldWidth - gp.tileSize);
-				else {
-					worldY -= (speed/2);
-					worldX += (speed/2);
-				}
+
 				directionV = "up";
 				directionH = "right";
 			}
@@ -118,10 +123,7 @@ public class Player extends Entity {
 					worldY = (gp.worldHeight - gp.tileSize);
 				else if((worldX+speed) >= (gp.worldWidth - gp.tileSize))
 					worldX = (gp.worldWidth - gp.tileSize);
-				else {
-					worldY += (speed/2);
-					worldX += (speed/2);
-				}
+
 				directionV = "down";
 				directionH = "right";
 			}
@@ -130,18 +132,14 @@ public class Player extends Entity {
 					worldY = (gp.worldHeight - gp.tileSize);
 				else if((worldX-speed) <= 0)
 					worldX = 0;
-				else {
-					worldY += (speed/2);
-					worldX -= (speed/2);
-				}
+
 				directionV = "down";
 				directionH = "left";
 			}
 			else if(keyH.upPressed == true) {
 				if((worldY-speed) <= 0)
 					worldY = 0;
-				else
-					worldY -= speed;
+
 				//System.out.println("up");
 				directionV = "up";
 				directionH = "NULL";
@@ -149,8 +147,7 @@ public class Player extends Entity {
 			else if(keyH.downPressed == true) {
 				if((worldY + speed) >= (gp.worldHeight - gp.tileSize))
 					worldY = (gp.worldHeight - gp.tileSize);
-				else
-					worldY += speed;
+
 				//System.out.println("down");
 				directionV = "down";
 				directionH = "NULL";
@@ -158,8 +155,7 @@ public class Player extends Entity {
 			else if(keyH.leftPressed == true) {
 				if((worldX-speed) <= 0)
 					worldX = 0;
-				else
-					worldX -= speed;
+
 				//System.out.println("left");
 				directionH = "left";
 				directionV = "NULL";
@@ -167,11 +163,48 @@ public class Player extends Entity {
 			else if(keyH.rightPressed == true) {
 				if((worldX+speed) >= (gp.worldWidth - gp.tileSize))
 					worldX = (gp.worldWidth - gp.tileSize);
-				else
-					worldX += speed;
+
 				//System.out.println("right");
 				directionH = "right";
 				directionV = "NULL";
+			}
+			
+			//check player collision
+			collisionOn = false;
+			gp.cChecker.checkTile(this);
+			if(collisionOn == true)
+				System.out.println(collisionOn);
+			if(collisionOn == false) {
+				
+				if(directionV == "up" && directionH == "left") {
+						worldY -= (speed/2);
+						worldX -= (speed/2);
+				}
+				else if(directionV == "up" && directionH == "right") {
+						worldY -= (speed/2);
+						worldX += (speed/2);
+				}
+				else if(directionV == "down" && directionH == "right") {
+						worldY += (speed/2);
+						worldX += (speed/2);
+				}
+				else if(directionV == "down" && directionH == "left") {
+						worldY += (speed/2);
+						worldX -= (speed/2);
+				}
+				else if(directionV == "up") {
+						worldY -= speed;
+					
+				}
+				else if(directionV == "down") {
+						worldY += speed;
+				}
+				else if(directionH == "left") {
+						worldX -= speed;
+				}
+				else if(directionH == "right") {
+						worldX += speed;
+				}
 			}
 			
 		
@@ -181,6 +214,8 @@ public class Player extends Entity {
 			}
 		
 		}
+		
+		
 		WalkCount ++;
 		if(WalkCount >= (speed+1)){
 			WalkNum = 0;

@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 
@@ -15,5 +16,11 @@ public class Entity {
 	
 	public int WalkCount = 0;
 	public int WalkNum = 0;
+	
+	public String directionV, directionH;
+	
+	//for collision area
+	public Rectangle solidArea;
+	public boolean collisionOn = false;
 	
 }
