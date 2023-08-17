@@ -172,8 +172,6 @@ public class Player extends Entity {
 			//check player collision
 			collisionOn = false;
 			gp.cChecker.checkTile(this);
-			if(collisionOn == true)
-				System.out.println(collisionOn);
 			if(collisionOn == false) {
 				
 				if(directionV == "up" && directionH == "left") {

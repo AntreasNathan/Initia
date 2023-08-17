@@ -21,7 +21,7 @@ public class TileManager {
 	public TileManager(GamePanel gp) {
 		this.gp = gp;
 		tile = new Tile[10];
-		mapTileNum = new int[gp.maxWorldRow][gp.maxWorldCol];
+		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
 		loadMap("/Maps/world01.txt");
@@ -68,15 +68,15 @@ public class TileManager {
 			int col = 0;
 			int row = 0;
 			
-			while(row < gp.maxWorldRow) {
+			while(col < gp.maxWorldCol) {
 				String line = reader.readLine();
 				
 				String numbers[] = line.split(" ");
-				for(col=0 ; col<gp.maxWorldCol ; col++) {
-					mapTileNum[row][col] = Integer.parseInt(numbers[col]);
+				for(row=0 ; row<gp.maxWorldRow ; row++) {
+					mapTileNum[col][row] = Integer.parseInt(numbers[row]);
 				}
 				//System.out.println();
-				row++;
+				col++;
 			}
 			
 		}catch(Exception e) {
@@ -104,15 +104,15 @@ public class TileManager {
 //			}
 //		}
 		
-		for(int worldRow = minPrintX ; worldRow <= maxPrintX ; worldRow++) {
-			for(int worldCol = minPrintY ; worldCol <= maxPrintY ; worldCol++) {
-				worldX = worldRow * gp.tileSize;
-				worldY = worldCol * gp.tileSize;
+		for(int worldRow = minPrintY ; worldRow <= maxPrintY ; worldRow++) {
+			for(int worldCol = minPrintX ; worldCol <= maxPrintX ; worldCol++) {
+				worldX = worldCol * gp.tileSize;
+				worldY = worldRow * gp.tileSize;
 				screenX = worldX - gp.player.worldX + gp.player.screenX;
 				screenY = worldY - gp.player.worldY + gp.player.screenY;
-				if(	worldRow >= 0 && worldRow < gp.maxWorldRow &&
-					worldCol >= 0 && worldCol < gp.maxWorldCol)	
-				g2.drawImage(tile[mapTileNum[worldRow][worldCol]].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+				if(	worldCol >= 0 && worldCol < gp.maxWorldCol &&
+					worldRow >= 0 && worldRow < gp.maxWorldRow)	
+				g2.drawImage(tile[mapTileNum[worldCol][worldRow]].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 			}
 		}
 		
