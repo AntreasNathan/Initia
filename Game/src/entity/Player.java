@@ -43,8 +43,8 @@ public class Player extends Entity {
 	
 	public void seDefaultValues() {
 		
-		this.worldX = gp.tileSize * 21;
-		this.worldY = gp.tileSize * 23;
+		this.worldX = gp.tileSize * 23;
+		this.worldY = gp.tileSize * 21;
 		this.speed = 10;
 		this.directionV = "up";
 		this.directionH = "right";
@@ -172,6 +172,10 @@ public class Player extends Entity {
 			//check player collision
 			collisionOn = false;
 			gp.cChecker.checkTile(this);
+			if(collisionOn) {
+				System.out.println("Player: X = " + worldX/gp.tileSize + "  Y = " + worldY/gp.tileSize);
+			}
+			
 			if(collisionOn == false) {
 				
 				if(directionV == "up" && directionH == "left") {
