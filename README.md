@@ -1,1 +1,26 @@
-Initia is a simple open world game created in Java. It serves as an introductory project to explore core concepts of 2D game development, such as rendering, tile-based maps, and player movement. The game currently features a large, walkable environment where the player can freely move around a 50x50 tile map using keyboard controls. While there is no storyline or interactive elements yet, this early version lays the foundation for more complex features in the future. The map is composed of different tile types including grass, walls, water, earth, trees, and sand, each represented by a unique number for easy customization and expansion. This project was built with Java 17+ and is compatible with common IDEs like IntelliJ IDEA, VS Code, or Eclipse. To run the game, simply run the .sh files given and launch the main class. Future updates may include map interaction, inventory systems, and NPCs. Initia is open source and available under the MIT License.
+# Initia
+
+Initia is a simple open-world 2D game created in **Java**.  
+It serves as an introductory project to explore core concepts of game development such as rendering, tile-based maps, and player movement.
+
+---
+
+## Features
+- Walkable **50x50 tile map**
+- Keyboard-based **player movement**
+- Multiple tile types: grass, walls, water, earth, trees, sand  
+- Easy map customization via numeric tile values
+
+---
+
+## Requirements
+- **Java 17+**
+- Works with common IDEs (IntelliJ IDEA, VS Code, Eclipse)
+
+---
+
+## Installation & Usage
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/initia.git
+   cd initia
