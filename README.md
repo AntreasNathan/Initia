@@ -24,3 +24,6 @@ It serves as an introductory project to explore core concepts of game developmen
    ```bash
    git clone https://github.com/yourusername/initia.git
    cd initia
+
+## Screenshot
+![Initia Screenshot](screenshots/image.png)
